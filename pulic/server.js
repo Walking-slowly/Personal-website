@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const qs = require("querystring");
+const hostName = '45.76.169.191';
+
+const port = 80;
 
 //连接数据库
 const mysql = require('mysql');
@@ -12,6 +15,7 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+//获取数据
 app.post('/getList',function(req,res){
     res.set('Access-Control-Allow-Origin','*');
     //根据前端传过来的参数，返回数据
@@ -41,5 +45,41 @@ app.post('/getList',function(req,res){
        
     });  
 })
-app.listen(12345);
-console.log('连接成功')
+
+//登录后台
+app.post('/getuser',function(req,res){
+    res.set('Access-Control-Allow-Origin','*');
+    //根据前端传过来的参数，返回数据
+    var postData = '';
+    var data;
+    req.on("data", function (data) {
+        postData += data;
+    });
+    req.on("end", function () {
+        var query = qs.parse(postData);
+        if(query.password){
+            //查询数据库
+            connection.query(`SELECT * FROM user WHERE username=${query.name} AND password='${query.password}'`,function(err,datas){
+                if(datas == ''){
+                    res.end('密码错误')
+                }else{
+                    res.end('')
+                }
+            })
+        }else{
+            //查询数据库
+            connection.query(`SELECT * FROM user WHERE username=${query.name}`,function(err,datas){
+                if(datas == ''){
+                    res.end('账号不存在')
+                }
+            })
+        }
+        
+    })
+})
+
+
+
+app.use(express.static("Personal-website")).listen(port,hostName,function(){
+    console.log(`服务器运行在http://${hostName}:${port}`);
+});
