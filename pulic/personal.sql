@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-02-08 17:45:38
+Date: 2018-02-23 17:40:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,4 +49,20 @@ INSERT INTO `list` VALUES ('13', '这是第四个标题', '第四个标题的简
 INSERT INTO `list` VALUES ('14', '这是第五个标题', '第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，', 'img/05.jpg', '0', '0', '0');
 INSERT INTO `list` VALUES ('15', '这是第六个标题', '第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，', 'img/06.jpg', '0', '0', '0');
 INSERT INTO `list` VALUES ('16', '这是第七个标题', '第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，', '', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', '17688881701', 'ly951220');
 SET FOREIGN_KEY_CHECKS=1;
