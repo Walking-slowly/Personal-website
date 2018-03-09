@@ -125,7 +125,7 @@ app.post('/insertDate',function(req,res){
         var query = qs.parse(postData);
        
         //修改对应数据
-        connection.query(`INSERT INTO list (title,brief,img,browse,Fabulous,water,ueditor) VALUES ('${query.title}','${query.brief}','${query.img}','${query.browse}','${query.Fabulous}','${query.water}','${query.ueditor}')`,function(err,datas){
+        connection.query(`INSERT INTO list (title,brief,img,browse,Fabulous,water,ueditor,time) VALUES ('${query.title}','${query.brief}','${query.img}','${query.browse}','${query.Fabulous}','${query.water}','${query.ueditor}','${query.time}')`,function(err,datas){
             if(err) throw err;
             res.end(JSON.stringify({
                 status:200
