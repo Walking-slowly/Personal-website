@@ -19,7 +19,7 @@ th, td /* table elements 表格元素 */ {
 }
 
 /** 设置默认字体 **/
-body,
+
 button, input, select, textarea /* for ie */ {
   font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
 }
