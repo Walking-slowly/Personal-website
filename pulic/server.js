@@ -42,7 +42,17 @@ app.post('/getList',function(req,res){
                     data:datas
                 }))
             })
-        }else{
+        } //搜索
+        else if(query.search){
+            connection.query(`SELECT * FROM list WHERE title like "%${query.search}%"`,function(err,datas){
+                if(err) throw err;
+                res.end(JSON.stringify({
+                    status:200,
+                    data:datas
+                }))
+            })
+        }
+        else{
             //读取数据库文件
             connection.query('SELECT * FROM list',function(err,datas){
                 var frist = (Number(query.page)-1)*query.num;
@@ -149,7 +159,7 @@ app.post('/getuser',function(req,res){
         if(query.password){
             //查询数据库
             connection.query(`SELECT * FROM user WHERE username=${query.name} AND password='${query.password}'`,function(err,datas){
-                if(datas == ''){
+                if(datas == undefined){
                     res.end('密码错误')
                 }else{
                     res.end('')
