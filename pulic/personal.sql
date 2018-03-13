@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-03-09 17:55:18
+Date: 2018-03-13 09:51:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `list` (
   `Fabulous` int(200) NOT NULL COMMENT '点赞量',
   `water` int(200) NOT NULL,
   `ueditor` varchar(10000) NOT NULL COMMENT '文章内容',
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
@@ -47,12 +47,12 @@ INSERT INTO `list` VALUES ('10', '这是第六个标题', '第五个标题的简
 INSERT INTO `list` VALUES ('12', '这是第七个标题', '第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，第五个标题的简介，', 'img/07.jpg', '2', '0', '0', '', '2018-03-09 15:05:20');
 INSERT INTO `list` VALUES ('17', '第N个', '测试', '', '87', '23', '4', '<p><img src=\"../../../static/img/files-1520473766471.png\" style=\"max-width:100%;\"><br></p>', '2018-03-09 15:05:20');
 INSERT INTO `list` VALUES ('18', '反反复复', '反反复复', '', '2', '0', '0', '<p style=\"text-align: center;\">烦烦烦</p><p style=\"text-align: left;\"><img src=\"../../../static/img/files-1520473594924.png\" style=\"max-width:100%;\"><br></p><p style=\"text-align: left;\">111</p>', '2018-03-09 15:05:20');
-INSERT INTO `list` VALUES ('19', 'ssss', 'ssss', '', '1', '0', '0', '<p>sssss</p>', '2018-03-09 15:05:20');
-INSERT INTO `list` VALUES ('20', 'ssss', 'ssss', '', '0', '0', '0', '<p>sssss</p>', '2018-03-09 15:05:20');
-INSERT INTO `list` VALUES ('21', 'ssss', 'ssss', '', '0', '0', '0', '<p>sssss<img src=\"../../../static/img/files-1520477299182.png\" style=\"max-width: 100%;\"></p>', '2018-03-09 15:05:20');
-INSERT INTO `list` VALUES ('22', '水水水水水', '杀杀杀', '', '6', '0', '0', '<p>杀杀杀<img src=\"../../../static/img/files-1520477538850.jpg\" style=\"max-width: 100%;\"></p>', '2018-03-09 15:05:20');
-INSERT INTO `list` VALUES ('25', 's是', '是', '', '0', '0', '0', '<p>是</p>', '2018-03-09 17:49:55');
-INSERT INTO `list` VALUES ('26', '水水水水水水水水水水水水水水', '水水水水水水水水水水水水水水水水水水', '', '0', '0', '0', '<p>水水水水水水水水水水水水水水水水水</p>', '2018-03-09 17:50:27');
+INSERT INTO `list` VALUES ('19', 'ssss', 'ssss', '', '2', '0', '0', '<p>sssss</p>', '2018-03-12 09:22:16');
+INSERT INTO `list` VALUES ('20', 'ssss', 'ssss', '', '1', '0', '0', '<p>sssss</p>', '2018-03-09 15:05:20');
+INSERT INTO `list` VALUES ('21', 'ssss', 'ssss', '', '1', '0', '0', '<p>sssss<img src=\"../../../static/img/files-1520477299182.png\" style=\"max-width: 100%;\"></p>', '2018-03-09 15:05:20');
+INSERT INTO `list` VALUES ('22', '水水水水水', '杀杀杀', '', '8', '0', '0', '<p>杀杀杀<img src=\"../../../static/img/files-1520477538850.jpg\" style=\"max-width: 100%;\"></p>', '2018-03-09 15:05:20');
+INSERT INTO `list` VALUES ('25', 's是', '是', '', '4', '0', '0', '<p>是</p>', '2018-03-12 09:38:47');
+INSERT INTO `list` VALUES ('26', '水水水水水水水水水水水水水水', '水水水水水水水水水水水水水水水水水水', '', '18', '2', '1', '<p>水水水水水水水水水水水水水水水水水<span style=\"background-color: rgb(241, 241, 241);\">editor.customConfig.customUploadImg = function (files, insert) {</span></p><pre><code>\n            // files 是 input 中选中的文件列表\n            // insert 是获取图片 url 后，插入到编辑器的方法\n\n            // 上传代码返回结果之后，将图片插入到编辑器中\n            var formData = new FormData();\n            $(files).each(function(index,item){\n                \n                formData.append(\"files\",item);\n            })\n\n           $.ajax({\n				url: \"http://localhost:12345/upload\",\n				type: \"POST\",\n				cache: false, //不必须\n				data: formData,\n				processData: false,\n				contentType: false,\n				success: function(data) {\n					$(data.files).each(function(index,item){\n                        insert(\"../../../static/img/\"+item.filename)\n                    })\n				}\n            })\n        }</code></pre><p><br></p>', '2018-03-12 09:38:38');
 
 -- ----------------------------
 -- Table structure for user
