@@ -4,10 +4,10 @@
             <a href= "javasript:0;" @click.prevent= "popup">
                 <img src= "../../../static/img/icon.jpg"/>  
             </a>
-            <form>
+            <div class= "form">
                 <input type="text"/>
                 <span><i class="iconfont icon-unie036"></i></span>
-            </form>
+            </div>
         </div>
         <div v-if= "list" class= "listContentBox">
             <ul >
@@ -139,7 +139,7 @@ export default {
         },
         //跳转详情
         jumpDetails (id) {
-            this.$router.push({path:'/list/details',query:{id:`${id}`}})
+            this.$router.push({path:'/details',query:{id:`${id}`}})
         },
         //显示侧边栏
         popup() {
@@ -177,49 +177,55 @@ export default {
 <style lang="scss" scoped>
     #list{
         padding-bottom:1rem;
-        text-align: center;
         .listHead{
             display: none;
             width:100%;
-            height:4rem;
             background:#000;
+            height:6rem;
             a{
                 float:left;
-                width:3rem;
-                height:3rem;
+                width:4.5rem;
+                height:4.5rem;
                 border-radius: 50%;
-                display: block;
                 overflow: hidden;
-                margin:0.5rem 0 0 1rem;
+                margin:0.75rem 0 0.75rem 1.7rem;
                 img{
+                    display: block;
                     width:100%;
                     height:100%;
                 }
             }
-            form{
-                width:17rem;
-                height:2.5rem;
-                margin:0.75rem auto;
-                border-radius: 1.3rem;
+            .form{
+                
+                width:54%;
+                height:2.7rem;
+                margin:1.5rem auto;
+                border-radius: 1.5rem;
                 background:#fff;
                 input{
                     float:left;
+                    height:2.7rem;
+                    box-sizing: border-box;
                     padding:0.5rem 0.5rem 0.5rem 1rem;
-                    border-radius: 1.3rem;
+                    border-radius: 1.5rem;
                     border:0;
                     outline: none;
                     font-size:1.4rem;
                     width:13rem;
                 }
                 span{
-                    
-                    cursor: pointer;
+                    float:right;
+                    text-align: center;
                     display: block;
+                    width:2.8rem;
+                    height:2.7rem;
+                    cursor: pointer;
                     i{
+                        
                         color:#000;
                         font-size:1.8rem;
                         font-weight:700;
-                        line-height: 2.4rem;
+                        line-height: 2.7rem;
                     }
                 }
                 
@@ -379,7 +385,7 @@ export default {
             flex-flow: column;
             .listContentBox{
                 overflow-y:auto;
-                
+                -webkit-overflow-scrolling: touch;
                 &::-webkit-scrollbar {
                     width:0.4rem; 
                     height:0.4rem; 

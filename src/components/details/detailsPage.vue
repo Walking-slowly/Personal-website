@@ -47,6 +47,7 @@ export default {
                     success(data){
                         self.detailsData = JSON.parse(data).data[0];
                         console.log(self.detailsData)
+                        alert(self.detailsData)
                     }
             })
         }

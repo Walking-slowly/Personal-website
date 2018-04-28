@@ -1,8 +1,6 @@
 <template>
     <div id= "content" :class= "{'scroll':showScroll}" ref= "content">
-        <transition :name= "transitionName">  
             <router-view class= "contentBox"/>
-        </transition>
     </div>
 </template>
 
@@ -13,7 +11,7 @@ export default {
        return {
            topValue :0,
            showScroll:false,
-           transitionName: 'none' 
+          
        }
    },
    methods:{
@@ -37,12 +35,8 @@ export default {
    destroyed () {
        $('#content').unbind('scroll')
    },
-   //监听路由过度动画
-   watch: {  
-    '$route' (to, from) {  
-        to.path == '/list'?this.transitionName = 'slide-right':this.transitionName = 'slide-left';
-    }  
-  }  
+ 
+
 }
 </script>
 
@@ -76,9 +70,6 @@ export default {
             position: fixed;
             height:100%;
             display: flex;
-            .contentBox{
-                transition: all 0.5s ease;
-            }
             &::-webkit-scrollbar {
                     display: none; 
                 }
@@ -88,12 +79,7 @@ export default {
                 }
             }
 
-        .slide-left-enter, .slide-right-leave-active {  
-            transform: translateX(100%);  
-        }  
-        .slide-left-leave-active, .slide-right-enter {  
-            transform: translateX(-100%);   
-        }  
+      
         
     }
 

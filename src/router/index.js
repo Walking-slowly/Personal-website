@@ -15,7 +15,6 @@ import ueditor from '@/components/ueditor/ueditorPage'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
@@ -34,7 +33,7 @@ export default new Router({
           component:sss
         },
         {
-          path:'/list/details',
+          path:'/details',
           name:details,
           component:details
         }
