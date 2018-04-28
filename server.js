@@ -8,9 +8,8 @@ const multer = require('multer');
 const fs = require('fs');
 
 
-// const hostName = 'localhost';
-
-// const port = 8080;
+const hostName = '45.76.169.191';
+const port = 80;
 
 //连接数据库
 const mysql = require('mysql');
@@ -104,7 +103,7 @@ app.post('/insertDate',function(req,res){
 const storage = multer.diskStorage({
 	//设置上传后文件路径，uploads文件夹会自动创建。
 	destination: function(req, file, cb) {
-		cb(null, './static/img')
+		cb(null, 'root/Personal-website/static/img')
 	},
 	//给上传文件重命名，获取添加后缀名
 	filename: function(req, file, cb) {
@@ -126,12 +125,6 @@ app.post('/upload', upload.any(), function(req, res, next) {
 	});
 });
 
-
-
-
-app.listen(12345);
-console.log('连接成功')
-
-// app.use(express.static("Personal-website")).listen(port,hostName,function(){
-//     console.log(`服务器运行在http://${hostName}:${port}`);
-// });
+app.use(express.static("Personal-website")).listen(port,hostName,function(){
+    console.log(`服务器运行在http://${hostName}:${port}`);
+});
