@@ -33,13 +33,12 @@ app.post('/getList',function(req,res){
     });
     req.on("end", function () {
         var query = qs.parse(postData);
-
+        console.log(query)
         //详情
         if(query.id){
             connection.query(`SELECT * FROM list WHERE id=${query.id}`,function(err,datas){
                 if(err) throw err;
                 res.end(JSON.stringify({
-                    status:200,
                     data:datas
                 }))
             })

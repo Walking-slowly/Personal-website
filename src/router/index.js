@@ -1,16 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HelloWorld from '@/components/HelloWorld'
-import list from '@/components/list/listPage'
-import sss from '@/components/sss/sssPage'
-
-//详情
-import details from '@/components/details/detailsPage'
-
-//编辑
-import ueditor from '@/components/ueditor/ueditorPage'
-
+const _import = require('./import-' + process.env.NODE_ENV)
 
 Vue.use(Router)
 
@@ -18,33 +9,24 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/list',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      children:[
+      name: 'home',
+      redirect: '/list',
+      component: _import('home/index'),
+      desc: '首页',
+      children: [
         {
-          path:'/list',
-          name:list,
-          component:list
+          path: '/list',
+          name: 'list',
+          desc: '列表',
+          component: _import('content/list')
         },
         {
-          path:'/sss',
-          name:sss,
-          component:sss
-        },
-        {
-          path:'/details',
-          name:details,
-          component:details
+          path: '/details/:id',
+          name: 'details',
+          desc: '详情',
+          component: _import('content/details')
         }
       ]
-      
-    },
-    {
-      path:'/ueditor',
-      name:ueditor,
-      component:ueditor
     }
-    
   ]
 })
