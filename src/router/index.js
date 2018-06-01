@@ -18,13 +18,46 @@ export default new Router({
           path: '/list',
           name: 'list',
           desc: '列表',
-          component: _import('content/list')
+          component: _import('content/list'),
+          meta: {
+            keepAlive: true // 不需要缓存
+          }
         },
         {
           path: '/details/:id',
           name: 'details',
           desc: '详情',
-          component: _import('content/details')
+          component: _import('content/details'),
+          meta: {
+            keepAlive: false // 不需要缓存
+          }
+        }
+      ]
+    },
+    {
+      path: '/eidtor',
+      name: 'eidtor',
+      redirect: '/eidtor/list',
+      component: _import('eidtor/index'),
+      desc: '后台',
+      children: [
+        {
+          path: '/eidtor/list',
+          name: 'list',
+          desc: '列表',
+          component: _import('eidtor/list'),
+          meta: {
+            title: '数据列表'
+          }
+        },
+        {
+          path: '/eidtor/insert/:id',
+          name: 'insert',
+          desc: '添加数据',
+          component: _import('eidtor/insert'),
+          meta: {
+            title: '添加数据'
+          }
         }
       ]
     }

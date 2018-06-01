@@ -24,13 +24,17 @@ export default {
         position: fixed;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 1024px) {
       #home{
         flex-flow: column;
+        position: initial;
+      }
+    }
+
+    @media (max-width: 750px) {
+      #home{
+        flex-flow: column;
+         position: fixed;
       }
     }
 </style>
-
-
-
-

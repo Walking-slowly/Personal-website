@@ -99,37 +99,37 @@ app.post('/insertDate',function(req,res){
     }); 
 })
 
-//图片上传
-const storage = multer.diskStorage({
-	//设置上传后文件路径，uploads文件夹会自动创建。
-	destination: function(req, file, cb) {
-		cb(null, './static/img')
-	},
-	//给上传文件重命名，获取添加后缀名
-	filename: function(req, file, cb) {
-		const fileFormat = (file.originalname).split(".");
-		//给图片加上时间戳格式防止重名名
-		//比如把 abc.jpg图片切割为数组[abc,jpg],然后用数组长度-1来获取后缀名
-		cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
-	}
-});
-const upload = multer({
-	storage: storage
-});
+// //图片上传
+// const storage = multer.diskStorage({
+// 	//设置上传后文件路径，uploads文件夹会自动创建。
+// 	destination: function(req, file, cb) {
+// 		cb(null, './static/img')
+// 	},
+// 	//给上传文件重命名，获取添加后缀名
+// 	filename: function(req, file, cb) {
+// 		const fileFormat = (file.originalname).split(".");
+// 		//给图片加上时间戳格式防止重名名
+// 		//比如把 abc.jpg图片切割为数组[abc,jpg],然后用数组长度-1来获取后缀名
+// 		cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+// 	}
+// });
+// const upload = multer({
+// 	storage: storage
+// });
 
-//多图上传
-app.post('/upload', upload.any(), function(req, res, next) {	
-    res.append("Access-Control-Allow-Origin","*");
-	res.send({
-		files:req.files
-	});
-});
-
-
+// //多图上传
+// app.post('/upload', upload.any(), function(req, res, next) {	
+//     res.append("Access-Control-Allow-Origin","*");
+// 	res.send({
+// 		files:req.files
+// 	});
+// });
 
 
-app.listen(12345);
-console.log('连接成功')
+
+
+// app.listen(12345);
+// console.log('连接成功')
 
 // app.use(express.static("Personal-website")).listen(port,hostName,function(){
 //     console.log(`服务器运行在http://${hostName}:${port}`);
