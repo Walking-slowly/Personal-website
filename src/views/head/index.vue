@@ -5,7 +5,7 @@
                 <img src="../../assets/img/icon.jpg"/>
             </a>
             <ul>
-                <li v-for="(item,i) in nav" :key="i" :class="item.id==showId?'active':''" @click="showNav(item.id)">{{item.name}}</li>
+                <router-link tag="li" :to="item.path" v-for="(item,i) in nav" :key="i" :class="item.id==showId?'active':''" @click="showNav(item.id)">{{item.name}}</router-link>
             </ul>
         </header>
         <div class="head">
@@ -30,9 +30,9 @@ export default {
   data () {
     return {
       nav: [
-        {id: 0, name: 'Article'},
-        {id: 1, name: 'bbbbb'},
-        {id: 2, name: 'cccc'}
+        {id: 0, name: 'Article', path: '/list'},
+        {id: 1, name: 'bbbbb', path: '/list'},
+        {id: 2, name: 'cccc', path: '/list'}
       ],
       showId: 0,
       showHead: true

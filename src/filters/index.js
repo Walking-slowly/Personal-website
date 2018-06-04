@@ -19,23 +19,21 @@ Vue.filter('getImg', function (value) {
 Vue.filter('capitalize', function (value, type) {
   var res
   if (value == null) return value
-  switch (type) {
-    case '50':
-      if (value.length > type) {
-        res = value.substring(0, 50) + '...'
-      } else {
-        res = value
-      }
-      break
-    default:
+  else {
+    if (value.length > type) {
+      res = value.substring(0, type) + '...'
+    } else {
+      res = value
+    }
+    return res
   }
-  return res
 })
 
 // 显示时间
 Vue.filter('timer', function (value, type) {
+  var date = new Date(value)
+  var dateTime = date.getTime()
   if (type) {
-    var date = new Date(value)
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours() < 10 ? '0' + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`
   } else {
     var result
@@ -44,7 +42,7 @@ Vue.filter('timer', function (value, type) {
     var day = hour * 24
     var month = day * 30
     var now = new Date().getTime()
-    var diffValue = now - value
+    var diffValue = now - dateTime
     if (diffValue < 0) { return }
     var monthC = diffValue / month
     var weekC = diffValue / (7 * day)

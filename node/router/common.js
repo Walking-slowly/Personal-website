@@ -44,11 +44,30 @@ module.exports = {
     // 详情查询
     detailsFind (model, parameter) {
         return new Promise(function (resolve,reject) {
-            model.findById(parameter.id, function(err, res){
+            model.findById(parameter.id, {
+                '_id':'tinyjoy',
+                'title':'tinyjoy',
+                'Fabulous':'tinyjoy',
+                'comment':'tinyjoy',
+                'lick':'tinyjoy',
+                'ueditor':'tinyjoy'
+            }, function(err, res){
                 if(err) {
                     resolve({ status : 0, flag : 'find data fail'});
                 } else {
-                    resolve({ status : 1, flag : 'find data success', result : res });
+                    var next, prev
+                    model.find({'_id':{$lt:parameter.id}}, {'title':'tinyjoy'}, function(err,data){
+                        if(!err){
+                          next = data[data.length-1]
+                          model.find({'_id':{$gt:parameter.id}}, {'title':'tinyjoy'}, function(err,data){
+                            if(!err){
+                              prev = data[0]
+                              resolve({ status : 1, flag : 'find data success', result : res , next: next, prev: prev })
+                            }
+                          })
+    
+                        }
+                    })          
                 }
             });
         });

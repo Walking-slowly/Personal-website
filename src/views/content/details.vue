@@ -2,6 +2,10 @@
   <div id="details" v-if="details" ref="details">
       <h3>{{details.title}}</h3>
       <div v-html="details.ueditor" class="detailsContent"></div>
+      <p>
+        <router-link tag="span" :to="'/details/'+prev._id" v-if="prev">上一篇：{{prev.title}}</router-link>
+        <router-link tag="span" :to="'/details/'+next._id" v-if="next">下一篇：{{next.title}}</router-link>
+      </p>
       <div class="comment">
         <h2>评论</h2>
         <el-form :inline="true" :model="comments" class="demo-form-inline" >
@@ -14,16 +18,18 @@
           <el-input type="textarea" v-model="comments.text" :rows="4" placeholder="请输入..." resize="none"></el-input>
           <el-button type="primary" @click="addComment">提交</el-button>
         </el-form>
-        <h6>{{details.comment.length}}条评论</h6>
+        <h6>共{{details.comment.length}}条评论</h6>
         <ul v-if="details.comment !== 0">
           <li v-for="(item, i) in details.comment" :key="i">
-            <h4>{{item.name}}
+            <h4>
+              <b v-html="item.name"></b>
               <a v-if="item.url" :href="'http://'+item.url" target="_blank">个人博客地址</a>:
+              <i>{{item.time | timer}}评论</i>
             </h4>
-            <span>{{item.text}}</span>
+            <span v-html="item.text"></span>
             <p>
-              <b>支持·0</b>
-              <b>反对·0</b>
+              <b>支持·{{item.lick}}</b>
+              <b>回复</b>
             </p>
           </li>
         </ul>
@@ -37,10 +43,13 @@
 </template>
 
 <script>
+import xss from 'xss'
 export default {
   data () {
     return {
       details: null,
+      next: null,
+      prev: null,
       comments: {
         name: '',
         text: '',
@@ -58,8 +67,9 @@ export default {
         id: this.$route.params.id
       }
       this.$http.details(params).then(data => {
-        console.log(data)
         self.details = data.data.result
+        self.next = data.data.next
+        self.prev = data.data.prev
         self.$emit('showLoading', false)
         self.updateFabulous()
       }).catch(eorr => {
@@ -69,6 +79,14 @@ export default {
 
     // 提交评论
     addComment () {
+      this.comments = {
+        name: this.comments.name ? xss(this.comments.name) : '路人甲',
+        text: xss(this.comments.text),
+        time: new Date(),
+        url: xss(this.comments.url),
+        lick: 0
+      }
+
       this.details.comment.unshift(this.comments)
       this.comments = {
         name: '',
@@ -104,17 +122,22 @@ export default {
     // 返回顶部
     backTOp () {
       var timer = setInterval(() => {
-        if (this.$parent.$el.scrollTop <= 0 || this.$parent.$el.scrollTop / 5 <= 0) {
-          this.$parent.$el.scrollTop = 0
+        var ele = this.$parent.$el.scrollTop ? this.$parent.$el : document.documentElement
+        if (ele.scrollTop <= 0 || ele.scrollTop / 5 <= 0) {
+          ele.scrollTop = 0
           clearInterval(timer)
         }
-        this.$parent.$el.scrollTop = this.$parent.$el.scrollTop - this.$parent.$el.scrollTop / 7
+        ele.scrollTop -= ele.scrollTop / 7
       })
     }
   },
   mounted () {
     this.getDetails()
+  },
+  watch: {
+    '$route': 'getDetails'
   }
+
 }
 </script>
 
@@ -167,6 +190,19 @@ export default {
             border:1px solid #ddd;
           }
       }
+      p{
+        margin-top: rem(20);
+        span{
+          display: block;
+          font-size: rem(14);
+          color: #aba9a9;
+          cursor: pointer;
+          line-height: rem(22);
+          &:hover{
+            color:#399ab2;
+          }
+        }
+      }
       .comment{
         margin-top: rem(40);
         h2{
@@ -203,8 +239,16 @@ export default {
               color: #399ab2;
               font-weight: 400;
               font-size: rem(14);
+              b{
+                font-weight: 400;
+              }
               a{
                 font-size: rem(10);
+              }
+              i{
+                display: block;
+                font-size: rem(10);
+                color: #aba9a9;
               }
             }
             span{

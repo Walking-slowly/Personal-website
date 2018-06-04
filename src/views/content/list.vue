@@ -4,7 +4,7 @@
           <router-link :to="'/details/'+item._id" v-for="(item,i) in list" :key="i">
             <li >
                 <div class="listContent">
-                    <h3>{{item.title}}</h3>
+                    <h3>{{item.title | capitalize('14')}}</h3>
                     <p>{{item.brief}}</p>
                     <span>
                         <em>发布于{{item.time | timer}}</em>
