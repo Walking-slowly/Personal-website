@@ -1,21 +1,5 @@
 import Vue from 'vue'
 
-Vue.filter('getImg', function (value) {
-  var regexp = /<[img|IMG].*?src=['|"](.*?(?:[.png|.jpg|.gif|.bmp|.bnp]))['|"].*?[/]?>/gi
-  var res
-  if (value == null) {
-    res = '../../../static/img/icon.jpg'
-    return
-  }
-  res = value.match(regexp)
-  if (res) {
-    res = res[0].getAttribute('src')
-  } else {
-    res = '../../../static/img/icon.jpg'
-  }
-  return res
-})
-
 Vue.filter('capitalize', function (value, type) {
   var res
   if (value == null) return value

@@ -46,6 +46,7 @@ module.exports = {
         return new Promise(function (resolve,reject) {
             model.findById(parameter.id, {
                 '_id':'tinyjoy',
+                'brief':'tinyjoy',
                 'title':'tinyjoy',
                 'Fabulous':'tinyjoy',
                 'comment':'tinyjoy',

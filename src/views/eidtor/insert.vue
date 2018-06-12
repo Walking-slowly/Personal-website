@@ -52,12 +52,17 @@ export default {
 
       // 隐藏“网络图片”tab
       editor.customConfig.showLinkImg = false
-      editor.customConfig.customUploadImg = function (files, insert) {
-        // files 是 input 中选中的文件列表
-        // insert 是获取图片 url 后，插入到编辑器的方法
-
-        // 上传代码返回结果之后，将图片插入到编辑器中
-        // insert (imgUrl)
+      editor.customConfig.customUploadImg = (files, insert) => {
+        var imgdata = new FormData() // 创建formData对象
+        // 循环写入formData
+        files.forEach(item => {
+          return imgdata.append('img', item)
+        })
+        this.$http.upload(imgdata).then(data => {
+          data.data.files.forEach(item => {
+            insert('./upload/' + item.filename)
+          })
+        })
       }
 
       editor.customConfig.onchange = html => {

@@ -14,7 +14,7 @@
                     </span>
                 </div>
                 <a href="javascript:;">
-                    <img src="../../assets/img/icon.jpg"/>
+                    <img :src="item.ueditor | getImg"/>
                 </a>
             </li>
           </router-link>
@@ -43,7 +43,6 @@ export default {
       var self = this
       this.$emit('showLoading', true)
       this.$http.list(self.params).then(data => {
-        console.log(data)
         self.list = data.data.result
         self.total = Math.ceil(data.data.total / self.params.num)
         self.$emit('showLoading', false)
@@ -70,6 +69,23 @@ export default {
   },
   mounted () {
     this.gitList()
+  },
+  filters: {
+    getImg: function (value) {
+      var regexp = /<[img|IMG].*?src=['|"](.*?(?:[.png|.jpg|.gif|.bmp|.bnp]))['|"].*?[/]?>/gi
+      var res
+      if (value == null) {
+        res = require('../../assets/img/icon.jpg')
+        return
+      }
+      res = value.match(regexp)
+      if (res) {
+        res = res[0].match(/src=['|"]?([^'"]*)['"]?/gi)[0].split('=')[1].replace(/"/g, '')
+      } else {
+        res = require('../../assets/img/icon.jpg')
+      }
+      return res
+    }
   }
 }
 </script>
@@ -77,6 +93,7 @@ export default {
 <style lang="scss" scoped>
   #list{
       ul{
+          flex:1;
           padding: rem(15) rem(20);
           li{
               width: 100%;
@@ -94,7 +111,7 @@ export default {
                   h3{
                       color: #868282;
                       font-size: rem(16);
-                      line-height: rem(28);
+                      line-height: rem(30);
                       text-align: center;
                   }
                   p{
@@ -134,6 +151,7 @@ export default {
           }
       }
       .page{
+          margin-bottom:rem(10);
           display: flex;
           justify-content: space-between;
           padding:rem(10) rem(30);

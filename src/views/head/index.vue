@@ -9,18 +9,32 @@
             </ul>
         </header>
         <div class="head">
-            <div class="listHead" v-if="showHead">
-                <a href="javascript:;"><img src="../../assets/img/icon.jpg"/></a>
-                <form>
-                    <input type="text" placeholder="请输入..."/>
-                    <i class="el-icon-search"></i>
-                </form>
-                <span><i class="el-icon-menu"></i></span>
-            </div>
-            <div class="detailsHead" v-else>
-                <span><i class="el-icon-back" @click.prevent="back"></i></span>
-                <span><i class="el-icon-more"></i></span>
-            </div>
+            <el-row :gutter="20" type="flex" justify="space-between" tag="div" class="listHead" v-if="showHead">
+                <el-col :span="4"><a href="javascript:;"><img src="../../assets/img/icon.jpg"/></a></el-col>
+                <el-col :span="16">
+                    <el-input
+                        size="mini"
+                        placeholder="请输入..."
+                        clearable
+                        prefix-icon="el-icon-search"
+                        >
+                    </el-input>
+                </el-col>
+                <el-col :span="3.5"><span><i class="el-icon-menu"></i></span></el-col>
+            </el-row>
+            <el-row type="flex" justify="space-between" tag="div" class="detailsHead" v-else>
+                <el-col :span="2"><span><i class="el-icon-back" @click.prevent="back"></i></span></el-col>
+                <el-col :span="2">
+                    <el-dropdown trigger="click">
+                        <span class="el-dropdown-link">
+                        <i class="el-icon-more"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item><i class="el-icon-share"></i> 分享</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </el-col>
+            </el-row>
         </div>
     </div>
 </template>
@@ -45,7 +59,17 @@ export default {
     },
     back () {
       this.$router.back(-1)
+    },
+    switchHead () {
+      if (this.$route.name === 'list') {
+        this.showHead = true
+      } else {
+        this.showHead = false
+      }
     }
+  },
+  mounted () {
+    this.switchHead()
   },
   watch: {
     $route (to, from) {
@@ -117,11 +141,9 @@ export default {
             background:#000 !important;
             height:rem(54);
             .listHead{
+                align-items: center;
                 height: 100%;
                 padding: 0 rem(15);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
                 a{
                     display: inline-block;
                     width: rem(40);
@@ -134,42 +156,21 @@ export default {
                         display: block;
                     }
                 }
-                form{
-                    padding:rem(3) rem(4);
-                    box-sizing:border-box;
-                    display: flex;
-                    background:$backgroundcolor !important;
-                    border-radius: rem(10);
-                    input{
-                        width: rem(180);
-                        height: rem(24);
-                        font-size:rem(14);
-                        padding:0 rem(2);
-                        flex:1;
-                        outline: none;
-                        border:0;
-                        border-radius: rem(10);
-                        background:$backgroundcolor !important;
-                    }
-                    i{
-                        padding:0 rem(2);
-                        font-size:rem(24);
-                    }
+                .el-input{
+                    font-size:rem(14);
                 }
                 span{
-                    font-size:rem(32);
+                    font-size:rem(30);
                     color:$backgroundcolor;
                 }
             }
             .detailsHead{
-                height:100%;
-                display: flex;
                 align-items: center;
+                height:100%;
                 padding: 0 rem(15);
-                justify-content: space-between;
                 span{
                     color:#fff;
-                    font-size:rem(30);
+                    font-size:rem(28);
                 }
             }
         }

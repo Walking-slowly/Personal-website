@@ -5,7 +5,7 @@ const http = axios.create({
   // 超时
   timeout: 4000,
   // 配置合并后,baseUrl会添加到url前面，除非url是绝对路径
-  baseURL: 'http://localhost:8081'
+  baseURL: 'http://127.0.0.1:12345'
 })
 
 // http请求拦截器

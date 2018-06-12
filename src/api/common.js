@@ -51,10 +51,21 @@ function inserts (params) {
   )
 }
 
+/**
+ * 图片上传
+ * @param {*} params 参数对象
+ */
+function upload (params) {
+  return request(
+    {url: '/upload', method: 'POST', data: params}
+  )
+}
+
 export default {
   list,
   details,
   inserts,
   update,
-  deletes
+  deletes,
+  upload
 }
