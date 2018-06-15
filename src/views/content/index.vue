@@ -1,9 +1,6 @@
 <template>
   <div id="content" v-loading="loadingBool" element-loading-background="rgba(245,245,245,0.5) !important" ref="content" :class="loadingBool?'contentActive':''">
-        <keep-alive>
-            <router-view v-if="$route.meta.keepAlive" @showLoading="getLoading"></router-view>
-        </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive" @showLoading="getLoading"></router-view>
+    <router-view @showLoading="getLoading"></router-view>
   </div>
 </template>
 

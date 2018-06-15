@@ -4,7 +4,7 @@ const fs = require('fs')
 const storage = multer.diskStorage({
 	// 设置上传后文件路径, 自动生成upload文件夹
 	destination: function(req, file, cb) {
-		cb(null, '../dist/upload/')
+		cb(null, './Personal-website/upload/')
 	},
 	//给上传文件重命名，获取添加后缀名
 	filename: function(req, file, cb) {

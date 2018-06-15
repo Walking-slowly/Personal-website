@@ -67,6 +67,9 @@ export default {
       this.gitList()
     }
   },
+  created () {
+    this.params.page = this.$store.state.list.page
+  },
   mounted () {
     this.gitList()
   },
@@ -86,6 +89,9 @@ export default {
       }
       return res
     }
+  },
+  destroyed () {
+    this.$store.dispatch('setPage', this.params.page)
   }
 }
 </script>
@@ -143,6 +149,7 @@ export default {
                   height: rem(130);
                   overflow: hidden;
                   img{
+                      border-radius: rem(6);
                       border: 0;
                       display: block;
                       width: 100%;

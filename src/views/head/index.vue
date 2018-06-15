@@ -9,32 +9,39 @@
             </ul>
         </header>
         <div class="head">
-            <el-row :gutter="20" type="flex" justify="space-between" tag="div" class="listHead" v-if="showHead">
-                <el-col :span="4"><a href="javascript:;"><img src="../../assets/img/icon.jpg"/></a></el-col>
-                <el-col :span="16">
-                    <el-input
-                        size="mini"
-                        placeholder="请输入..."
-                        clearable
-                        prefix-icon="el-icon-search"
-                        >
-                    </el-input>
-                </el-col>
-                <el-col :span="3.5"><span><i class="el-icon-menu"></i></span></el-col>
-            </el-row>
-            <el-row type="flex" justify="space-between" tag="div" class="detailsHead" v-else>
-                <el-col :span="2"><span><i class="el-icon-back" @click.prevent="back"></i></span></el-col>
-                <el-col :span="2">
-                    <el-dropdown trigger="click">
-                        <span class="el-dropdown-link">
-                        <i class="el-icon-more"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item><i class="el-icon-share"></i> 分享</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </el-col>
-            </el-row>
+            <div class="headBox">
+                <el-row :gutter="20" type="flex" justify="space-between" tag="div" class="listHead" v-if="showHead">
+                    <el-col :span="4"><a href="javascript:;"><img src="../../assets/img/icon.jpg"/></a></el-col>
+                    <el-col :span="16">
+                        <el-input
+                            size="mini"
+                            placeholder="请输入..."
+                            clearable
+                            prefix-icon="el-icon-search"
+                            >
+                        </el-input>
+                    </el-col>
+                    <el-col :span="3.5"><span @click.prevent="showSelect = !showSelect"><i class="el-icon-menu"></i></span></el-col>
+                </el-row>
+                <el-row type="flex" justify="space-between" tag="div" class="detailsHead" v-else>
+                    <el-col :span="2"><span><i class="el-icon-back" @click.prevent="back"></i></span></el-col>
+                    <el-col :span="2">
+                        <el-dropdown trigger="click">
+                            <span class="el-dropdown-link">
+                            <i class="el-icon-more"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item><i class="el-icon-share"></i> 分享</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </el-col>
+                </el-row>
+            </div>
+            <el-collapse-transition>
+                <ul v-show="showSelect">
+                    <router-link tag="li" :to="item.path" v-for="(item,i) in nav" :key="i" :class="item.id==showId?'active':''" @click="showNav(item.id)">{{item.name}}</router-link>
+                </ul>
+            </el-collapse-transition>
         </div>
     </div>
 </template>
@@ -49,7 +56,8 @@ export default {
         {id: 2, name: 'cccc', path: '/list'}
       ],
       showId: 0,
-      showHead: true
+      showHead: true,
+      showSelect: false
     }
   },
   methods: {
@@ -137,40 +145,56 @@ export default {
         }
         .head{
             display: none;
-            width:100%;
-            background:#000 !important;
-            height:rem(54);
-            .listHead{
-                align-items: center;
-                height: 100%;
-                padding: 0 rem(15);
-                a{
-                    display: inline-block;
-                    width: rem(40);
-                    height: rem(40);
-                    overflow: hidden;
-                    border-radius: 50%;
-                    img{
-                        width:100%;
-                        border:0;
-                        display: block;
+            .headBox{
+                width:100%;
+                background:#222 !important;
+                height:rem(54);
+                .listHead{
+                    align-items: center;
+                    height: 100%;
+                    padding: 0 rem(15);
+                    a{
+                        display: inline-block;
+                        width: rem(40);
+                        height: rem(40);
+                        overflow: hidden;
+                        border-radius: 50%;
+                        img{
+                            width:100%;
+                            border:0;
+                            display: block;
+                        }
+                    }
+                    .el-input{
+                        font-size:rem(14);
+                    }
+                    span{
+                        font-size:rem(30);
+                        color:$backgroundcolor;
                     }
                 }
-                .el-input{
-                    font-size:rem(14);
-                }
-                span{
-                    font-size:rem(30);
-                    color:$backgroundcolor;
+                .detailsHead{
+                    align-items: center;
+                    height:100%;
+                    padding: 0 rem(15);
+                    span{
+                        color:#fff;
+                        font-size:rem(28);
+                    }
                 }
             }
-            .detailsHead{
-                align-items: center;
-                height:100%;
-                padding: 0 rem(15);
-                span{
+            ul{
+                border-top: 1px solid transparent;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+                background:#222 !important;
+                li{
+                    line-height: rem(40);
+                    font-size:rem(20);
+                    color:#9d9d9d;
+                    padding-left:rem(15);
+                }
+                .active{
                     color:#fff;
-                    font-size:rem(28);
                 }
             }
         }

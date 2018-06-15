@@ -18,19 +18,13 @@ export default new Router({
           path: '/list',
           name: 'list',
           desc: '列表',
-          component: _import('content/list'),
-          meta: {
-            keepAlive: true // 不需要缓存
-          }
+          component: _import('content/list')
         },
         {
           path: '/details/:id',
           name: 'details',
           desc: '详情',
-          component: _import('content/details'),
-          meta: {
-            keepAlive: false // 不需要缓存
-          }
+          component: _import('content/details')
         }
       ]
     },
